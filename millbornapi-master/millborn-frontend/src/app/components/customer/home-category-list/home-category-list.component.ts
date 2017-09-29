@@ -12,14 +12,14 @@ export class HomeCategoryListComponent implements OnInit {
   constructor(public _homeServices : HomepageService) { }
 
   ngOnInit() {
-    this.getlist();
+   // this.getlist();
   }
 
-  getlist(){
+  // getlist(){
     
-    this._homeServices.getCate().subscribe(result => {
-      this.data = result;
-    });
-  }
+  //   this._homeServices.getCate().subscribe(result => {
+  //     this.data = result;
+  //   });
+  // }
 
 }

@@ -27,6 +27,15 @@ var router = function() {
     .get(function(req,res){
         return webmngmtcontroller.subgroupList(req,res);
     });
+    webrouter.route('/products')
+    .get(function(req,res){
+        return webmngmtcontroller.productlist(req,res);
+    });
+
+    webrouter.route('/mainitem')
+    .get(function(req,res){
+        return webmngmtcontroller.mainitem(req,res);
+    });
 
     return webrouter;
 };

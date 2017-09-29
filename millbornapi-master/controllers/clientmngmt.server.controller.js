@@ -11,16 +11,16 @@ var Sequelize = require('sequelize');
 
 exports.createOrUpdateClient = function(req, res) {
     let reqbody = req.body;
-    let td = commonFunc.getTokenData(req);
-
+    //let td = commonFunc.getTokenData(req);
+let td=0;
     //at the time of create only
     if (reqbody.ClientId == 0) {
         reqbody.CreatedAt = new Date();
-        reqbody.CreatedBy = td.UserId;
+        reqbody.CreatedBy = td;//td.UserId;
     }
 
     reqbody.ModifiedAt = new Date();
-    reqbody.ModifiedBy = td.UserId;
+    reqbody.ModifiedBy =td; //td.UserId;
 
     getLastClientId().then(result => {
         if (result.status == 200) {
@@ -53,9 +53,9 @@ exports.createOrUpdateClient = function(req, res) {
                     addressCreateOrUpdate(addObj).then(address => {
                         let finalData = { client: client.msg.dataValues, address: address.msg.dataValues };
                         if (reqbody.ClientId == 0)
-                            sendApprovalEmail(finalData, 0);
-                        else
-                            sendApprovalEmail(finalData, 1);
+                            //sendApprovalEmail(finalData, 0);
+                       // else
+                           // sendApprovalEmail(finalData, 1);
 
                         res.status(200).send(finalData);
                     }).catch(erradd => {
@@ -84,6 +84,8 @@ exports.createOrUpdateClient = function(req, res) {
     });
 
 }
+
+
 
 exports.clientList = function(req, res) {
 

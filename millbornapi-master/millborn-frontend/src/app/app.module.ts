@@ -40,6 +40,9 @@ import { HomeClientListComponent } from './components/customer/home-client-list/
 import { HomeProductListComponent } from './components/customer/home-product-list/home-product-list.component';
 import { BarContainerComponent } from './components/customer/bar-container/bar-container.component';
 import { FooterComponent } from './components/customer/footer/footer.component';
+import { ToggleDirective } from './directives/toggle.directive';
+import { CategoryListSubgroupComponent } from './components/customer/category-list-subgroup/category-list-subgroup.component';
+import { CategoryListCateComponent } from './components/customer/category-list-cate/category-list-cate.component';
 
 
 
@@ -77,7 +80,10 @@ export function authHttpServiceFactory(http: Http, options: RequestOptions) {
     HomeClientListComponent,
     HomeProductListComponent,
     BarContainerComponent,
-    FooterComponent
+    FooterComponent,
+    ToggleDirective,
+    CategoryListSubgroupComponent,
+    CategoryListCateComponent
   ],
   imports: [
     BrowserModule,

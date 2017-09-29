@@ -16,6 +16,10 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.STRING(256),
       allowNull: false
     },
+    SubGroupId: {
+      type:DataTypes.INTEGER(11),
+      allowNull:false
+    },
     CreatedAt: {
       type: DataTypes.DATE,
       allowNull: false

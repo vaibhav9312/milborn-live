@@ -22,29 +22,55 @@ import { HomepageService } from '../../../services/homepage.service'
 })
 export class HeaderComponent implements OnInit {
 data:any[];
-
+rim:any[];
 showme:boolean;
   constructor(public _homeServices : HomepageService) { }
 
   ngOnInit() {
     this._homeServices.getGroupList().subscribe(result => {
       this.data = result;
-      this.getsublist(this.data);
-      this.data.unshift({GroupLink: '/home/web' ,Group:'Home'});
-      this.data.push({GroupLink:'/Contact',Group:'Contact US'});
+      this.getsublist(result);
+     // this.data.unshift({GroupLink: '/home/web' ,Group:'Home'});
+      //this.data.push({GroupLink:'/Contact',Group:'Contact US'});
      
     });
   }
  getsublist(dat){
-  for(let i=0;i>dat.length;i++){
-    if(dat[i].GroupId){
-      this._homeServices.getSubGroupList(dat[i].GroupId).subscribe(result=>{
-        
-             });
-    }
+   let dd:any[]=dat;
+   let index: number=0;
+   dd.forEach(element => {
+     this._homeServices.getSubGroupList(element.GroupId).subscribe(result=>{
+       if(this.data[index].GroupId===element.GroupId){
+         this.data[index].Sub=result;
+         
+       }
+       
+       if(dd.length-1 === index) {
+         
+        this.getcate();
+       }
+            index++;
+    });
+
+   });
    
    }
-  }
- 
+ getcate(){
+  
+   let index:number=0;
+   
+   this.data.forEach(ele=>{
+     ele.Sub.forEach(element => {
+      this._homeServices.getCate(element.SubGroupId).subscribe(result=>{
+       //console.log(result.SubGroupId+"/"+element.SubGroupId)
+       
+      element.Cate=result;
+        
+     });
+     index++;
+     });
+   });
+  
+ }
 
 }

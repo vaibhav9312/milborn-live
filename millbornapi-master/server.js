@@ -21,7 +21,7 @@ app.use('/api/account', accountRouter);
 
 var clientTypeRouter = require('./routes/clienttyperoutes')();
 app.use('/api/clienttype/', commonfunc.isAuthenticate, clientTypeRouter);
-app.use('/api/clientmng/', commonfunc.isAuthenticate, clientTypeRouter);
+app.use('/api/clientmng/', clientTypeRouter);
 
 var productTypeRouter=require('./routes/producttyperoutes')();
 app.use('/api/productmng/',commonfunc.isAuthenticate,productTypeRouter);

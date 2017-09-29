@@ -19,6 +19,9 @@ import { ProductListComponent } from './components/product-list/product-list.com
 import { HeaderComponent } from './components/customer/header/header.component';
 import { BarContainerComponent } from './components/customer/bar-container/bar-container.component';
 import { HomeComponent } from './components/customer/home/home.component';
+import { CategoryListSubgroupComponent } from './components/customer/category-list-subgroup/category-list-subgroup.component';
+import { CategoryListCateComponent } from './components/customer/category-list-cate/category-list-cate.component';
+import { HomeCategoryListComponent } from './components/customer/home-category-list/home-category-list.component';
 
 import { SharedModule } from "./components/shared/shared.module";
 
@@ -29,8 +32,14 @@ const routes: Routes = [
   component:BarContainerComponent,
   children:[
     {path:'',redirectTo:'web',pathMatch:'full'},
-    {path:'web',component: HomeComponent}
-  
+    {path:'web',
+    component: HomeComponent,
+  children:[
+    {path:'',component:HomeCategoryListComponent},
+{path:'sub/:id',component:CategoryListSubgroupComponent},
+{path:'cate/:id',component:CategoryListCateComponent}
+  ]
+  }
   ]
 },
   

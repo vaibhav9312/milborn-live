@@ -9,9 +9,9 @@ import { serviceUrls } from '../common/serviceUrls';
 export class HomepageService {
 
   constructor(private http:Http,private authHttp:AuthHttp) { }
- getCate(){
+ getCate(q){
 
-  return this.http.get(serviceUrls.Catelist, { headers: contentHeaders }).map(res => res.json());
+  return this.http.get(serviceUrls.Catelist+"?id="+q, { headers: contentHeaders }).map(res => res.json());
  }
  getGroupList(){
    return this.http.get(serviceUrls.GroupList,{headers:contentHeaders}).map(res=>res.json());

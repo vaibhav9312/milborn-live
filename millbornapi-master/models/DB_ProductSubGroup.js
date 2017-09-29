@@ -1,5 +1,5 @@
 module.exports = function(sequelize, DataTypes) {
-    return sequelize.define('DB_ProductGroup', {
+    return sequelize.define('DB_ProductSubGroup', {
       SubGroupId: {
         type: DataTypes.INTEGER(11),
         allowNull: false,
@@ -15,7 +15,7 @@ module.exports = function(sequelize, DataTypes) {
         allowNull: false
       }
     }, {
-      tableName: 'DB_ProductGroup',
+      tableName: 'DB_ProductSubGroup',
       timestamps: false
     });
   };

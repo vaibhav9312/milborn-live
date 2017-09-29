@@ -14,7 +14,7 @@ var Sequelize = require('sequelize');
 exports.CateList = function(req, res) {
 
   
-    context.DB_ProductGroup.findAll().then(result => {
+    context.DB_Category.findAll({attributes: ['CategoryId', 'CategoryName','SubGroupId'],where:{SubGroupId:req.query.id}}).then(result => {
         res.status(200).send(result);
        
     }).catch(error => {
@@ -52,7 +52,7 @@ exports.clientType = function(req, res) {
         exports.subgroupList = function(req, res) {
             
               
-                context.DB_ProductSubGroup.findAll({where:{ GroupId: re.query.id }}).then(result => {
+                context.DB_ProductSubGroup.findAll({where:{ GroupId: req.query.id }}).then(result => {
                     res.status(200).send(result);
                    
                 }).catch(error => {
@@ -60,3 +60,39 @@ exports.clientType = function(req, res) {
                     console.log(error);
                 })
             }
+
+            exports.productlist = function(req, res) {
+                
+                  
+                    context.DB_Products.findAll({where:{ CategoryId: req.query.cate }}).then(result => {
+                        res.status(200).send(result);
+                       
+                    }).catch(error => {
+                        res.status(500).send(error);
+                        console.log(error);
+                    })
+                }
+
+                // exports.createclient = function(req, res) {
+                    
+                //       console.log(req.body);
+                //         context.DB_Clients.insert({where:{ CategoryId: req.query.cate }}).then(result => {
+                //             res.status(200).send(result);
+                           
+                //         }).catch(error => {
+                //             res.status(500).send(error);
+                //             console.log(error);
+                //         })
+                //     }
+
+                    exports.mainitem = function(req, res) {
+                        
+                          console.log(req.body);
+                            context.DB_ClientMainItems.findAll({where:{ ClientTypeId: req.query.id }}).then(result => {
+                                res.status(200).send(result);
+                               
+                            }).catch(error => {
+                                res.status(500).send(error);
+                                console.log(error);
+                            })
+                        }
