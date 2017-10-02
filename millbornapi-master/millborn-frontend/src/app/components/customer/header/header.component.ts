@@ -42,7 +42,6 @@ showme:boolean;
      this._homeServices.getSubGroupList(element.GroupId).subscribe(result=>{
        if(this.data[index].GroupId===element.GroupId){
          this.data[index].Sub=result;
-         
        }
        
        if(dd.length-1 === index) {

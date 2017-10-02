@@ -58,7 +58,7 @@
                 <!-- ============================================================= SHOPPING CART DROPDOWN ============================================================= -->
 
                 <div class="dropdown dropdown-cart">
-                    <a href="" class="dropdown-toggle lnk-cart" ng-click="showme=true">
+                    <a href="#" data-toggle="dropdown" class="dropdown-toggle lnk-cart" appToggle>
                         <div class="items-cart-inner">
                             <div class="basket"><img src="assets/frontweb/images/cart.png" alt="">
                                 <span>My cart</span>
@@ -67,7 +67,7 @@
 
                         </div>
                     </a>
-                    <ul class="dropdown-menu" ng-show="showme">
+                    <ul class="dropdown-menu" >
                         <li>
                             <div class="cart-item product-summary">
                                 <div class="row">
@@ -134,9 +134,9 @@
                                             <div class="yamm-content ">
                                                 <div class="row">
                                                     <div  class="col-xs-12 col-sm-6 col-md-2 col-menu" *ngFor="let sg of grp.Sub">
-                                                        <h2 class="title"><a href="#" [routerLink]="['/home/web/sub/'+sg.SubGroupId]">{{sg.SubGroup}}</a></h2>
+                                                        <h2 class="title"><a href="#" [routerLink]="['/home/sub/'+sg.SubGroupId]">{{sg.SubGroup}}</a></h2>
                                                         <ul class="links">
-                                                            <li *ngFor="let cat of sg.Cate"><a href="#" [routerLink]="['/home/web/cate/'+cat.CategoryId]">{{cat.CategoryName}}</a></li>
+                                                            <li *ngFor="let cat of sg.Cate"><a href="#" [routerLink]="['/home/cate/'+cat.CategoryId]">{{cat.CategoryName}}</a></li>
                                                            
                                                         </ul>
                                                     </div>

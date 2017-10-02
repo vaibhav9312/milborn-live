@@ -37,6 +37,20 @@ var router = function() {
         return webmngmtcontroller.mainitem(req,res);
     });
 
+    webrouter.route('/subcatelist')
+    .get(function(req,res){
+        return webmngmtcontroller.subcateList(req,res);
+    });
+    webrouter.route('/subproducts')
+    .get(function(req,res){
+       
+        return webmngmtcontroller.subproducts(req,res);
+    });
+    webrouter.route('/cateproducts')
+    .get(function(req,res){
+        console.log('here');
+        return webmngmtcontroller.cateProduct(req,res);
+    });
     return webrouter;
 };
 

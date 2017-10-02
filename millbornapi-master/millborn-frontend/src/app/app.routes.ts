@@ -22,6 +22,10 @@ import { HomeComponent } from './components/customer/home/home.component';
 import { CategoryListSubgroupComponent } from './components/customer/category-list-subgroup/category-list-subgroup.component';
 import { CategoryListCateComponent } from './components/customer/category-list-cate/category-list-cate.component';
 import { HomeCategoryListComponent } from './components/customer/home-category-list/home-category-list.component';
+import { SubgroupproductscomponentComponent } from './components/customer/subgroupproductscomponent/subgroupproductscomponent.component'
+import { HomeProductListComponent } from './components/customer/home-product-list/home-product-list.component'
+import { CategoryproductComponent } from './components/customer/categoryproduct/categoryproduct.component'
+
 
 import { SharedModule } from "./components/shared/shared.module";
 
@@ -35,11 +39,28 @@ const routes: Routes = [
     {path:'web',
     component: HomeComponent,
   children:[
-    {path:'',component:HomeCategoryListComponent},
-{path:'sub/:id',component:CategoryListSubgroupComponent},
-{path:'cate/:id',component:CategoryListCateComponent}
+    {path:'' ,component:HomeCategoryListComponent,outlet:'category'},
+    {path:'',component:HomeProductListComponent,outlet:'product'},
+
+{path:'cate/:id',component:CategoryListCateComponent,outlet:'category'}
   ]
-  }
+  },
+  {
+    path:'sub/:id',
+    component:HomeComponent,
+  children:[
+    {path:'',component:CategoryListSubgroupComponent,outlet:'category'},
+  {path:'',component:SubgroupproductscomponentComponent,outlet:'product'},
+  ]
+},
+{
+  path:'cate/:id',
+  component:HomeComponent,
+children:[
+  {path:'',component:CategoryListCateComponent,outlet:'category'},
+{path:'',component:CategoryproductComponent,outlet:'product'},
+]
+}
   ]
 },
   

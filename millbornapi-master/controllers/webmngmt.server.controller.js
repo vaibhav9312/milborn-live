@@ -87,7 +87,7 @@ exports.clientType = function(req, res) {
 
                     exports.mainitem = function(req, res) {
                         
-                          console.log(req.body);
+                          
                             context.DB_ClientMainItems.findAll({where:{ ClientTypeId: req.query.id }}).then(result => {
                                 res.status(200).send(result);
                                
@@ -96,3 +96,41 @@ exports.clientType = function(req, res) {
                                 console.log(error);
                             })
                         }
+
+                        exports.subcateList = function(req, res) {
+                            
+                             
+                                context.DB_ProductSubCategory.findAll({where:{ CategoryId: req.query.id }}).then(result => {
+                                    res.status(200).send(result);
+                                   
+                                }).catch(error => {
+                                    res.status(500).send(error);
+                                    console.log(error);
+                                })
+                            }
+                            
+                            exports.subproducts = function(req, res) {
+                                
+                                
+                                    context.DB_Products.findAll({attributes: ['ProductId','ProductTitle', 'Price'],where:{ SubGroupId: req.query.id }}).then(result => {
+                                        
+                                        res.status(200).send(result);
+                                       
+                                    }).catch(error => {
+                                        res.status(500).send(error);
+                                        console.log(error);
+                                    })
+                                }
+
+                                exports.cateProduct = function(req, res) {
+                                    
+                                    
+                                        context.DB_Products.findAll({attributes: ['ProductId','ProductTitle', 'Price'],where:{ CategoryId: req.query.id }}).then(result => {
+                                            
+                                            res.status(200).send(result);
+                                           
+                                        }).catch(error => {
+                                            res.status(500).send(error);
+                                            console.log(error);
+                                        })
+                                    }

@@ -15,5 +15,8 @@ export const serviceUrls = {
     productlist: environment.host + 'api/productmng/product/list',
     Catelist:environment.host + 'web/catelist',
     GroupList: environment.host + 'web/groupList',
-    SubGroup : environment.host + 'web/subgrouplist'
+    SubGroup : environment.host + 'web/subgrouplist',
+    subproductList:environment.host + 'web/subproducts',
+    getsubcate:environment.host + 'web/subcatelist',
+    getcateProducts: environment.host +'web/cateproducts'
 }

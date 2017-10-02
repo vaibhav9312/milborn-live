@@ -19,4 +19,13 @@ export class HomepageService {
  getSubGroupList(a){
    return this.http.get(serviceUrls.SubGroup+"?id="+a,{headers: contentHeaders}).map(res=>res.json());
  }
+ getsubProd(a){
+   return this.http.get(serviceUrls.subproductList+"?id="+a,{headers:contentHeaders}).map(res=>res.json());
+ }
+ getSubCate(a){
+   return this.http.get(serviceUrls.getsubcate+"?id="+a,{headers:contentHeaders}).map(res=>res.json());
+ }
+ getcateprod(a){
+   return this.http.get(serviceUrls.getcateProducts+"?id="+a,{headers:contentHeaders}).map(res=>res.json());
+ }
 }

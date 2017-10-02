@@ -43,6 +43,8 @@ import { FooterComponent } from './components/customer/footer/footer.component';
 import { ToggleDirective } from './directives/toggle.directive';
 import { CategoryListSubgroupComponent } from './components/customer/category-list-subgroup/category-list-subgroup.component';
 import { CategoryListCateComponent } from './components/customer/category-list-cate/category-list-cate.component';
+import { SubgroupproductscomponentComponent } from './components/customer/subgroupproductscomponent/subgroupproductscomponent.component';
+import { CategoryproductComponent } from './components/customer/categoryproduct/categoryproduct.component';
 
 
 
@@ -83,7 +85,9 @@ export function authHttpServiceFactory(http: Http, options: RequestOptions) {
     FooterComponent,
     ToggleDirective,
     CategoryListSubgroupComponent,
-    CategoryListCateComponent
+    CategoryListCateComponent,
+    SubgroupproductscomponentComponent,
+    CategoryproductComponent
   ],
   imports: [
     BrowserModule,

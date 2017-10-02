@@ -6,8 +6,22 @@
              <nav class="yamm megamenu-horizontal">
                <ul class="nav" >
                  
-                 <li class="dropdown menu-item" *ngFor="let a of subgroup"> <a href="#" class="dropdown-toggle" data-toggle="dropdown" appToggle><i class="icon fa fa-paper-plane"></i>{{a.CategoryName}}</a> 
-                   <!-- /.dropdown-menu --> </li>
+                 <li class="dropdown menu-item" *ngFor="let a of cate"> <a href="#" (click)="getsub(a.CategoryId)" class="dropdown-toggle" data-toggle="dropdown" appToggle><i class="icon fa fa-paper-plane"></i>{{a.CategoryName}}</a> 
+                  <ul class="dropdown-menu mega-menu">
+                    <li class="yamm-content">
+                      <div class="row">
+                        <div class="col-sm-12 col-md-3">
+                          <ul class="links list-unstyled">
+                            <li *ngFor="let b of sub"><a href="#" [routerLink]="['/']">{{b.SubCategory}}</a></li>
+                            
+                          </ul>
+                        </div>
+                      </div>
+                      <!-- /.row --> 
+                    </li>
+                    <!-- /.yamm-content -->
+                  </ul>
+                  <!-- /.dropdown-menu --> </li>
                  <!-- /.menu-item -->
                 
                  

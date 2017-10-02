@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { Http } from '@angular/http';
+import { ActivatedRoute, Router } from '@angular/router';
+import { HomepageService } from '../../../services/homepage.service'
+import { serviceUrls } from '../../../common/serviceUrls';
 
 @Component({
   selector: 'home-product-list',
@@ -8,10 +12,12 @@ import { Component, OnInit } from '@angular/core';
 ]
 })
 export class HomeProductListComponent implements OnInit {
-
-  constructor() { }
+prod:any[];
+  constructor(private http:Http,private _pmService:HomepageService,private route:ActivatedRoute) { }
 
   ngOnInit() {
+   
+   
   }
 
 }
