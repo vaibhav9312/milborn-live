@@ -8,38 +8,70 @@ var sequelize = require('../sequelizeConfig').sequelizeConfig;
 var context = require('../models/entities.js')();
 var commonFunc = require('../routes/commonFunction');
 var Sequelize = require('sequelize');
+var randomstring = require("randomstring");
 
-exports.createOrUpdateClient = function(req, res) {
+
+exports.createClient = function(req, res) {
+
     let reqbody = req.body;
-    //let td = commonFunc.getTokenData(req);
-let td=0;
-    //at the time of create only
-    if (reqbody.ClientId == 0) {
-        reqbody.CreatedAt = new Date();
-        reqbody.CreatedBy = td;//td.UserId;
-    }
-
+    
+    reqbody.CreatedAt = new Date();
+    reqbody.Password=randomstring.generate(10);
     reqbody.ModifiedAt = new Date();
-    reqbody.ModifiedBy =td; //td.UserId;
 
     getLastClientId().then(result => {
         if (result.status == 200) {
-
             let clientObj = reqbody;
-
+            if(reqbody.Email){
+                
+           
+            
             clientObj.MainItemIds = Array.isArray(reqbody.MainItems) ? reqbody.MainItems.join(',') : reqbody.MainItems;
             clientObj.MainItemTexts = Array.isArray(reqbody.MainItemTexts) ? reqbody.MainItemTexts.join(',') : reqbody.MainItemTexts;
-
-            //at the time of create only
-            if (reqbody.ClientId == 0) {
-                clientObj.ClientCode = reqbody.ClientType.substring(0, 3).toUpperCase() + (parseInt(result.msg) + 1);
-                clientObj.IsActive = 0;
+           if(!reqbody.Pincode){
+            
+            var pl= reqbody.ClientTypeId.split(':');
+            clientObj.ClientTypeId=pl[0];
+                clientObj.ClientCode =pl[1].substring(0, 3).toUpperCase() + (parseInt(result.msg) + 1);
+                
+           }else{
+             
+            clientObj.ClientCode =reqbody.ClientType.substring(0, 3).toUpperCase() + (parseInt(result.msg) + 1);
+            
+           }
+           
+            clientObj.IsActive = 0;
                 clientObj.IsVerified = 0;
                 clientObj.Status = "pending";
-            }
-
-            clientCreateOrUpdate(clientObj).then(client => {
-
+               
+                    if(!reqbody.Pincode){
+                        
+                    clientCreate(clientObj).then(client => {
+                        
+                        if(client.status == 200){
+                            
+                            let finalData = { client: client.msg.dataValues };
+                            res.status(200).send(finalData);
+                           // sendVerificationEmail(finalData);
+                        }else{
+                            res.status(400).send(client.msg);
+                        }
+                        
+                    }).catch(err=>{
+                        console.log(err);
+                        res.status(500).send(err);
+                    })
+                }
+               
+        }
+  
+    
+if(reqbody.Pincode){
+    
+        if(reqbody.Email){
+            
+            clientCreate(clientObj).then(client => {
+               
                 if (client.status == 200) {
 
                     let addObj = reqbody;
@@ -49,11 +81,13 @@ let td=0;
                     }
 
                     addObj.FullAddress = reqbody.HouseNumber + " , " + reqbody.StreetName + " , " + reqbody.Area + " , " + reqbody.CityId + " - " + reqbody.Pincode + " Landmark : " + reqbody.Landmark;
-
-                    addressCreateOrUpdate(addObj).then(address => {
+                   
+                    addressCreate(addObj).then(address => {
                         let finalData = { client: client.msg.dataValues, address: address.msg.dataValues };
                         if (reqbody.ClientId == 0)
-                            //sendApprovalEmail(finalData, 0);
+                       
+                           // sendApprovalEmail(finalData, 0);
+                            sendVerificationEmail(finalData);
                        // else
                            // sendApprovalEmail(finalData, 1);
 
@@ -71,6 +105,31 @@ let td=0;
 
                 res.status(500).send(err);
             });
+        }else{
+            
+            let addObj = reqbody;
+            addObj.RoleId = 4;
+            addObj.UserId = reqbody.ClientId;
+            addObj.FullAddress = reqbody.HouseNumber + " , " + reqbody.StreetName + " , " + reqbody.Area + " , " + reqbody.CityId + " - " + reqbody.Pincode + " Landmark : " + reqbody.Landmark;
+            
+            addressCreate(addObj).then(address => {
+                let finalData = { client: client.msg.dataValues, address: address.msg.dataValues };
+               
+                    //sendApprovalEmail(finalData, 0);
+                    //sendVerificationEmail(finalData);
+               // else
+                   // sendApprovalEmail(finalData, 1);
+               
+                res.status(200).send(finalData);
+            }).catch(erradd => {
+                res.status(400).send(erradd);
+            });
+        }
+
+
+        }
+    
+       
 
         } else {
             res.status(400).send(result.msg);
@@ -82,6 +141,7 @@ let td=0;
 
         res.status(500).send(error);
     });
+
 
 }
 
@@ -131,22 +191,31 @@ exports.clientList = function(req, res) {
 
     context.DB_Clients.findAndCountAll(queryObj).then(result => {
         res.status(200).send(result);
+        
     }).catch(error => {
         res.status(500).send(error);
     })
 }
 
 exports.clientDetails = function(req, res) {
-
-    let str = `SELECT * FROM DB_Clients as Clients JOIN DB_ClientType as Types on Clients.ClientTypeId = Types.ClientTypeId JOIN DB_Address as Address on Clients.ClientId = Address.UserId WHERE Clients.ClientId=` + req.params.id + ` AND Address.RoleId=4`;
-
-    sequelize.query(str, { type: Sequelize.QueryTypes.SELECT }).then(result => {
+    context.DB_Clients.findAll({ where: { ClientId: req.params.id } }).then(result => {
         res.status(200).send(result);
     }, reject => {
         res.status(400).send(reject);
     }).catch(error => {
+        console.log(error);
         res.status(500).send(error);
     });
+
+    // let str = `SELECT * FROM DB_Clients as Clients JOIN DB_ClientType as Types on Clients.ClientTypeId = Types.ClientTypeId JOIN DB_Address as Address on Clients.ClientId = Address.UserId WHERE Clients.ClientId=` + req.params.id + ` AND Address.RoleId=4`;
+
+    // sequelize.query(str, { type: Sequelize.QueryTypes.SELECT }).then(result => {
+    //     res.status(200).send(result);
+    // }, reject => {
+    //     res.status(400).send(reject);
+    // }).catch(error => {
+    //     res.status(500).send(error);
+    // });
 
 
 }
@@ -178,15 +247,42 @@ function sendApprovalEmail(data, isNewOld) {
             sub = "Client details updated - ";
 
         let mailOptions = {
-            from: '"Pathak Darpan" <darpanpathak77@gmail.com>', // sender address
-            to: 'pathakdarpan77@gmail.com.com, darpan@citymobilitysolutions.com', // list of receivers
+            from: '"Vaibhav" <vaish0115@gmail.com>', // sender address
+            to: 'vaibhav@squarepixelstudios.net', // list of receivers
             subject: sub, // Subject line
             text: 'The following client is registered with us. Kindly check and approve.', // plain text body
             html: '<b>Hello world ?</b>' // html body
         };
 
         commonFunc.sendSingleMail(mailOptions, data).then(result => {
-            console.log(result);
+            
+            resolve({ status: 200, msg: result });
+        }, rej => {
+            console.log(rej);
+            reject({ status: 400, msg: rej });
+        }).catch(error => {
+            console.log(error);
+            reject({ status: 500, msg: error });
+        });
+
+    });
+}
+function sendVerificationEmail(data) {
+    return new Promise(function(resolve, reject) {
+       
+        let sub = "Millborn Email Verification("+data.client.FirmName+")";
+       
+
+        let mailOptions = {
+            from: '"Vaibhav" <vaish0115@gmail.com>', // sender address
+            to: 'vaibhav@squarepixelstudios.net', // list of receivers
+            subject: sub, // Subject line
+            text: 'Thankyou for Registering with Us.', // plain text body
+            html: '<b>Hello world ?</b>' // html body
+        };
+
+        commonFunc.sendSingleVerificationMail(mailOptions, data).then(result => {
+           
             resolve({ status: 200, msg: result });
         }, rej => {
             console.log(rej);
@@ -199,66 +295,50 @@ function sendApprovalEmail(data, isNewOld) {
     });
 }
 
-function addressCreateOrUpdate(data) {
+function addressCreate(data) {
     return new Promise(function(resolve, reject) {
-        if (!data.Landmark)
-            reject({ status: 400, msg: "Landmark can not be empty" });
-        else if (!data.HouseNumber)
-            reject({ status: 400, msg: "HouseNumber can not be empty" });
-        else if (!data.Area)
-            reject({ status: 400, msg: "Area can not be empty" });
-        else if (!data.StreetName)
-            reject({ status: 400, msg: "StreetName can not be empty" });
-        else if (!data.Pincode)
-            reject({ status: 400, msg: "Pincode can not be empty" });
-        else if (!data.District)
-            reject({ status: 400, msg: "District can not be empty" });
-
-        if (data.AddressId == 0) {
+       
             context.DB_Address.create(data).then(result => {
                 resolve({ status: 200, msg: result });
+               
             }, reject => {
+                console.log(reject+"####");
                 reject({ status: 400, msg: reject });
             }).catch(error => {
                 reject({ status: 500, msg: error });
             });
-        } else {
-            context.DB_Address.update(data, { where: { AddressId: data.AddressId } }).then(result => {
-                resolve({ status: 200, msg: result });
-            }, reject => {
-                reject({ status: 400, msg: reject });
-            }).catch(error => {
-                reject({ status: 500, msg: error });
-            });
-        }
+        
 
     });
 }
 
-function clientCreateOrUpdate(data) {
+function clientCreate(data) {
+   console.log(data);
     return new Promise(function(resolve, reject) {
-
-        if (data.ClientId == 0) {
+       
             context.DB_Clients.create(data).then(result => {
+               
                 resolve({ status: 200, msg: result });
             }, reject => {
                 reject({ status: 400, msg: reject });
             }).catch(error => {
                 reject({ status: 500, msg: error });
             });
-        } else {
-            context.DB_Clients.update(data, { where: { ClientId: data.ClientId } }).then(result => {
-                resolve({ status: 200, msg: result });
-            }, reject => {
-                reject({ status: 400, msg: reject });
-            }).catch(error => {
-                reject({ status: 500, msg: error });
-            });
-        }
+        
 
-    });
+     });
 }
-
+function  ClientUpdate(data){
+    return new Promise(function(resolve, reject) {
+    context.DB_Clients.update(data, { where: { ClientId: data.ClientId } }).then(result => {
+        resolve({ status: 200, msg: result });
+    }, reject => {
+        reject({ status: 400, msg: reject });
+    }).catch(error => {
+        reject({ status: 500, msg: error });
+    });
+});
+}
 function addMainItem(item) {
     return new Promise(function(resolve, reject) {
         if (!item)

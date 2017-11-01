@@ -3,6 +3,7 @@ import { Http } from '@angular/http';
 import { ActivatedRoute, Router } from '@angular/router';
 import { HomepageService } from '../../../services/homepage.service'
 import { serviceUrls } from '../../../common/serviceUrls';
+
 @Component({
   selector: 'app-category-list-subgroup',
   templateUrl: './category-list-subgroup.component.html',
@@ -37,6 +38,9 @@ sub:any[];
       this.sub=result;
      
     });
+  }
+  subcatefilter(a){
+    this._pmService.filterSubcategory(a);
   }
 
 }

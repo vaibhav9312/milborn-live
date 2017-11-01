@@ -42,11 +42,31 @@ let transporter = nodemailer.createTransport({
     port: 465,
     secure: true, // secure:true for port 465, secure:false for port 587
     auth: {
-        user: 'darpanpathak77@gmail.com',
-        pass: 'darpan123'
+        user: 'vaish0115@gmail.com',
+        pass: '1293vaibhav'
     }
 });
+exports.sendSingleVerificationMail=function(mailOptions,data){
+    return new Promise(function(resolve, reject) {
+        var sendNewClientRegistration = new EmailTemplate(path.join(__dirname, '../templates/', 'verification'));
+        sendNewClientRegistration.render(data, function(err, result) {
 
+            if (err)
+                reject({ status: 500, msg: err });
+            else {
+                mailOptions.html = result.html;
+
+                transporter.sendMail(mailOptions, function(err, info) {
+                    if (err) {
+                        reject({ status: 500, msg: err });
+                    } else {
+                        resolve({ status: 200, msg: info });
+                    }
+                });
+            }
+        });
+    });
+}
 // send mail with defined transport object
 exports.sendSingleMail = function(mailOptions, data) {
 
@@ -60,8 +80,8 @@ exports.sendSingleMail = function(mailOptions, data) {
                 mailOptions.html = result.html;
 
                 transporter.sendMail(mailOptions, function(err, info) {
-                    if (error) {
-                        reject({ status: 500, msg: error });
+                    if (err) {
+                        reject({ status: 500, msg: err });
                     } else {
                         resolve({ status: 200, msg: info });
                     }

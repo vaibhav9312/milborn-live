@@ -11,28 +11,18 @@ import { SharedFileUploadModule } from './modules/app.fileupload.module';
 
 
 import { AppComponent } from './app.component';
-import { SidebarComponent } from './components/sidebar/sidebar.component';
-import { NavbarComponent } from './components/navbar/navbar.component';
-import { DashboardComponent } from './components/dashboard/dashboard.component';
-import { SharedModule } from "./components/shared/shared.module";
+
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 import { MultiselectDropdownModule } from 'angular-2-dropdown-multiselect';
 
-import { SigninComponent } from './components/signin/signin.component';
-import { AppContainerComponent } from './components/app-container/app-container.component';
 
 import { AccountService } from './services/account.service';
 import { ClientManagementService } from './services/client-management.service';
 import { ProductManagementService } from './services/product-management.service';
 import { HomepageService } from './services/homepage.service';
 
-import { ClientTypeComponent } from './components/client-type/client-type.component';
 import { ConfirmDirective } from './directives/confirm.directive';
-import { ClientRegistrationComponent } from './components/client-registration/client-registration.component';
-import { ProductRegistrationComponent } from './components/product-registration/product-registration.component';
-import { ClientListComponent } from './components/client-list/client-list.component';
-import { ClientApprovalComponent } from './components/client-approval/client-approval.component';
-import { ProductListComponent } from './components/product-list/product-list.component';
+
 import { HeaderComponent } from './components/customer/header/header.component';
 import { HomeComponent } from './components/customer/home/home.component';
 import { HomeCategoryListComponent } from './components/customer/home-category-list/home-category-list.component';
@@ -45,6 +35,13 @@ import { CategoryListSubgroupComponent } from './components/customer/category-li
 import { CategoryListCateComponent } from './components/customer/category-list-cate/category-list-cate.component';
 import { SubgroupproductscomponentComponent } from './components/customer/subgroupproductscomponent/subgroupproductscomponent.component';
 import { CategoryproductComponent } from './components/customer/categoryproduct/categoryproduct.component';
+import { LoginComponent } from './components/customer/login/login.component';
+import { CreateAccountComponent } from './components/customer/create-account/create-account.component';
+import { ProductDetailComponent } from './components/customer/product-detail/product-detail.component';
+import { ProfileComponent } from './components/customer/profile/profile.component';
+import { CartComponent } from './components/customer/cart/cart.component';
+import { FilterPipe} from './common/filter.pipe';
+import { GroupproductsComponent } from './components/customer/groupproducts/groupproducts.component';
 
 
 
@@ -62,20 +59,9 @@ export function authHttpServiceFactory(http: Http, options: RequestOptions) {
 
 @NgModule({
   declarations: [
-    AppContainerComponent,
     AppComponent,
-    SidebarComponent,
-    NavbarComponent,
-    DashboardComponent,
-    SigninComponent,
     PageNotFoundComponent,
-    ClientTypeComponent,
     ConfirmDirective,
-    ClientRegistrationComponent,
-    ProductRegistrationComponent,
-    ClientListComponent,
-    ClientApprovalComponent,
-    ProductListComponent,
     HeaderComponent,
     HomeComponent,
     HomeCategoryListComponent,
@@ -87,14 +73,20 @@ export function authHttpServiceFactory(http: Http, options: RequestOptions) {
     CategoryListSubgroupComponent,
     CategoryListCateComponent,
     SubgroupproductscomponentComponent,
-    CategoryproductComponent
+    CategoryproductComponent,
+    LoginComponent,
+    CreateAccountComponent,
+    ProductDetailComponent,
+    ProfileComponent,
+    CartComponent,
+    FilterPipe,
+    GroupproductsComponent
   ],
   imports: [
     BrowserModule,
     ReactiveFormsModule,
     FormsModule,
     HttpModule,
-    SharedModule,
     AppRoutingModule,
     MultiselectDropdownModule,
     CKEditorModule,

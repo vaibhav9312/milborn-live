@@ -27,7 +27,9 @@ var router = function(sequelize, entities) {
 
     apirouter.route('/statebycountry/:countryid')
         .get(function(req, res) {
+           
             context.DB_State.findAll({ where: { CountryId: req.params.countryid } }).then(resolve => {
+               
                 res.status(200).send(resolve).end();
             }, reject => {
                 res.status(400).send(reject).end();
@@ -38,6 +40,7 @@ var router = function(sequelize, entities) {
 
     apirouter.route('/citybystate/:stateid')
         .get(function(req, res) {
+            
             context.DB_City.findAll({ where: { StateId: req.params.stateid } }).then(resolve => {
                 res.status(200).send(resolve).end();
             }, reject => {

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { HomepageService } from '../../../services/homepage.service'
-
+import { HomepageService } from '../../../services/homepage.service';
+import { AuthGuard } from '../../../common/auth.guard';
+import { AccountService } from '../../../services/account.service';
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
@@ -21,10 +22,15 @@ import { HomepageService } from '../../../services/homepage.service'
 ]
 })
 export class HeaderComponent implements OnInit {
-data:any[];
-rim:any[];
+data:any=new Array;
+rim:any=new Array;
+name:any;
+id:any;
+list:any=new Array;
 showme:boolean;
-  constructor(public _homeServices : HomepageService) { }
+itemcount:number=0;
+items:any[];
+  constructor(public _homeServices : HomepageService,private auth:AuthGuard,private acc:AccountService) { }
 
   ngOnInit() {
     this._homeServices.getGroupList().subscribe(result => {
@@ -32,7 +38,24 @@ showme:boolean;
       this.getsublist(result);
      // this.data.unshift({GroupLink: '/home/web' ,Group:'Home'});
       //this.data.push({GroupLink:'/Contact',Group:'Contact US'});
-     
+      this.itemcount=JSON.parse(localStorage.getItem('cart')).length;
+     this.items=JSON.parse(localStorage.getItem('cart'));
+    });
+  this.session();
+    this.acc.getEmittedValue()
+    .subscribe(item => this.canActi(item));
+   
+    this._homeServices.getsearchList().subscribe(result=>{
+      // this.list=result;
+      result.forEach(r=>{
+        r.forEach(p=>{
+          this.list.push(p);
+
+        });
+        
+       // console.log(r);
+      });
+      
     });
   }
  getsublist(dat){
@@ -71,5 +94,23 @@ showme:boolean;
    });
   
  }
-
+ canActi(a){
+//let tok=localStorage.getItem('name');
+let b=this.auth.canActivate();
+if(b){
+this.name=a.fullname;
+this.id=a.id;
+//this.name=tok;
+}
+ }
+ logout(){
+   this.acc.doLogout();
+   this.name="";
+ }
+ session(){
+   let b=this.auth.canActivate();
+   if(b){
+     this.name=localStorage.getItem('name');
+   }
+ }
 }

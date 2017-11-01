@@ -13,10 +13,14 @@ import { serviceUrls } from '../../../common/serviceUrls';
 })
 export class HomeProductListComponent implements OnInit {
 prod:any[];
+GroupList:any[];
   constructor(private http:Http,private _pmService:HomepageService,private route:ActivatedRoute) { }
 
   ngOnInit() {
-   
+   this._pmService.getGroupList().subscribe(result=>{
+     this.GroupList=result;
+    
+   })
    
   }
 

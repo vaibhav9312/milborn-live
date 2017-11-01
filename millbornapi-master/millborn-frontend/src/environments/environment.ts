@@ -5,6 +5,7 @@
 
 export const environment = {
   production: false,
-  host : "http://localhost:3030/",
+  host : "http://millborn-dev.herokuapp.com/",
   apiversion  :"api/v1/"
 };
+//http://localhost:3030/http://millborn-dev.herokuapp.com/

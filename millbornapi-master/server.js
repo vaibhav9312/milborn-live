@@ -20,18 +20,21 @@ var accountRouter = require('./routes/accountroutes')();
 app.use('/api/account', accountRouter);
 
 var clientTypeRouter = require('./routes/clienttyperoutes')();
-app.use('/api/clienttype/', commonfunc.isAuthenticate, clientTypeRouter);
+app.use('/api/clienttype/', clientTypeRouter);
 app.use('/api/clientmng/', clientTypeRouter);
 
 var productTypeRouter=require('./routes/producttyperoutes')();
 app.use('/api/productmng/',commonfunc.isAuthenticate,productTypeRouter);
 
 var apiroutes = require('./routes/apiroutes')();
-app.use('/api/generic/', commonfunc.isAuthenticate, apiroutes);
+app.use('/api/generic/', apiroutes);
 
 var apirouter = require('./routes/apiroutes')();
-app.use('/api', commonfunc.isAuthenticate, apirouter);
+app.use('/api', apirouter);
 
+app.post('/registration',function(req,res){
+console.log(req.body);
+});
 
 //----------------------WEB/Mob Routes-----------------------
 var webRoutes=require('./routes/webroutes')();

@@ -6,7 +6,7 @@
              <nav class="yamm megamenu-horizontal">
                <ul class="nav" >
                  
-                 <li class="dropdown menu-item" *ngFor="let am of subcate"><a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon fa fa-paper-plane"></i>{{am.SubCategory}}</a> 
+                 <li class="dropdown menu-item" *ngFor="let am of subcate"><a href="#" (click)="subcatefilter(am.SubCategoryId)" class="dropdown-toggle" data-toggle="dropdown"><i class="icon fa fa-paper-plane"></i>{{am.SubCategory}}</a> 
                    <!-- /.dropdown-menu --> </li>
                  <!-- /.menu-item -->
                 

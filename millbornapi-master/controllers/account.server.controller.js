@@ -14,13 +14,13 @@ exports.doLogin = function(req, res) {
     //password = encrypt(password);
     let modulename = "millborn";
 
-    context.DB_Users.findAll({
+    context.DB_Clients.findAll({
         where: {
-            UserName: username,
+            Email: username,
             Password: password
         }
     }).then(function(resolve) {
-
+        
         if (resolve.length > 0) {
             var token = jwt.sign(resolve[0].dataValues, lsconfig.secret, {
                 expiresIn: 60 * 60 // expires in 1 hours
@@ -31,7 +31,8 @@ exports.doLogin = function(req, res) {
                 message: 'Enjoy your token!',
                 token: token,
                 email: resolve[0].dataValues.Email,
-                fullname: resolve[0].dataValues.UserName
+                fullname: resolve[0].dataValues.OwnerName,
+                id: resolve[0].dataValues.ClientId
             };
 
             res.status(200).send(sendObj).end();

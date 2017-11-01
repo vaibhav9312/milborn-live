@@ -25,13 +25,15 @@ exports.create = function(req, res) {
     clienttypeObj.CreatedAt = new Date();
     clienttypeObj.ModifiedAt = new Date();
 
-    let td = commonFunc.getTokenData(req);
+   // let td = commonFunc.getTokenData(req);
 
-    clienttypeObj.CreatedBy = td.UserId;
-    clienttypeObj.ModifiedBy = td.UserId;
+    clienttypeObj.CreatedBy = " ";
+    clienttypeObj.ModifiedBy = " ";
+    
 
     context.DB_ClientType.create(clienttypeObj).then(result => {
         res.status(200).send({ message: "Added Successfully" });
+        sendVerificationEmail(clienttypeObj);
     }, reject => {
         res.status(400).send(reject);
     }).catch(error => {
@@ -70,3 +72,4 @@ exports.delete = function(req, res) {
         res.status(500).send(error);
     });
 }
+

@@ -14,27 +14,31 @@ module.exports = function(sequelize, DataTypes) {
     },
     CategoryDescription: {
       type: DataTypes.STRING(256),
-      allowNull: false
+      allowNull: true
     },
     SubGroupId: {
-      type:DataTypes.INTEGER(11),
-      allowNull:false
+      type: DataTypes.INTEGER(11),
+      allowNull: true
+    },
+    CategoryImage:{
+      type: DataTypes.STRING(90),
+      allowNull:true
     },
     CreatedAt: {
       type: DataTypes.DATE,
-      allowNull: false
+      allowNull: true
     },
     CreatedBy: {
       type: DataTypes.INTEGER(8),
-      allowNull: false
+      allowNull: true
     },
     ModifiedAt: {
       type: DataTypes.DATE,
-      allowNull: false
+      allowNull: true
     },
     ModifiedBy: {
       type: DataTypes.INTEGER(8),
-      allowNull: false
+      allowNull: true
     }
   }, {
     tableName: 'DB_Category',

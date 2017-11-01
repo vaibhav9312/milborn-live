@@ -12,30 +12,27 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.STRING(256),
       allowNull: false
     },
-    GroupId:{
+    GroupId: {
       type: DataTypes.INTEGER(4),
-      allowNull: false,
-     
+      allowNull: false
     },
-    SubGroupId:{
+    SubGroupId: {
       type: DataTypes.INTEGER(4),
-      allowNull: false,
+      allowNull: false
     },
     CategoryId: {
       type: DataTypes.INTEGER(4),
-      allowNull: false,
-     
+      allowNull: false
     },
     SubCategoryId: {
       type: DataTypes.INTEGER(4),
-      allowNull: false,
-     
+      allowNull: false
     },
     ProductDescription: {
       type: DataTypes.TEXT,
       allowNull: false
     },
-    Tags:{
+    Tags: {
       type: DataTypes.STRING(256),
       allowNull: false
     },
@@ -45,31 +42,31 @@ module.exports = function(sequelize, DataTypes) {
     },
     MinimumQty: {
       type: DataTypes.INTEGER(4),
-      allowNull: false,
-     
+      allowNull: false
+    },
+    Units: {
+      type: DataTypes.INTEGER(4),
+      allowNull: false
     },
     IsActive: {
       type: DataTypes.INTEGER(4),
-      allowNull: false,
-     
+      allowNull: false
     },
     IsDeleted: {
       type: DataTypes.INTEGER(4),
-      allowNull: false,
-     
+      allowNull: false
     },
     ProductImage: {
       type: DataTypes.STRING(256),
       allowNull: false
     },
-    CreatedAt:{
+    CreatedAt: {
       type: DataTypes.DATE,
       allowNull: false
     },
     CreatedBy: {
       type: DataTypes.INTEGER(8),
-      allowNull: false,
-     
+      allowNull: false
     },
     ModifiedAt: {
       type: DataTypes.DATE,
@@ -77,8 +74,7 @@ module.exports = function(sequelize, DataTypes) {
     },
     ModifiedBy: {
       type: DataTypes.INTEGER(8),
-      allowNull: false,
-      
+      allowNull: false
     }
   }, {
     tableName: 'DB_Products',

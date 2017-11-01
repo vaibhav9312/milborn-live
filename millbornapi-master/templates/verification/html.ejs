@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Verification/Activation</title>
+    <link rel="stylesheet" type="text/css" href="email.css">
+</head>
+
+<body>
+    <div style="border-top:2px solid #0072ee;padding-top:10px">
+    </div>
+    <div style="padding:17px;color:#005aab">
+        <p style="font-size:13px;margin:0;padding:0">Dear Member, </p>
+        <p>Thank you for registering with millborn. To verify your email ID and <span class="il">activate</span> your account, click on the link below:</p>
+        <p>
+            <a href="https://www.millborn-dev.herokuapp.com/EmailActivation/<%=client.EMail%>" target="_blank" data-saferedirecturl="https://www.google.com/url?hl=en&amp;q=https://www.millborn-dev.herokuapp.com/EmailActivation/<%=client.EMail%>;source=gmail&amp;ust=1507648245423000&amp;usg=AFQjCNFbbo5D4qQOeCD3miBRtAkEq479zQ">https://www.millborn.com/<wbr>EmailActivation/<wbr><%=client.Email%><wbr></a></p>
+        <p>And Enter the Password given below.</p>
+        <p><b>Password:</b><%=client.Password%></p>
+                <p>For more details visit <a href="http://millborn.com" target="_blank">Milliborn.com</a>. In case you have any concerns, please call us at (+91)02239893333 or write to us at <a href="mailto:memberservices@millborn.com" style="color:#0089cd;text-decoration:none"
+                target="_blank">memberservices@jetprivilege.<wbr>com</a>.</p>
+        <div style="font-size:13px;font-weight:400;width:150px;padding-bottom:40px">
+            <p>Yours sincerely,</p>
+            <p>The Milliborn Team</p>
+        </div>
+    </div>
+    <div style="border-top:2px solid #0072ee;padding-top:10px">
+        <div style="width:100%;margin:0 auto;padding:0 20px 10px 0;text-align:right">
+            <div style="color:#999;text-align:left;font-size:13px"> © Milliborn Pvt. Ltd. All rights reserved.</div>
+        </div>
+    </div>
+</body>
+
+</html>

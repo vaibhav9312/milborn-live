@@ -10,7 +10,7 @@ export class ToggleDirective {
   {
   return this.isOpen;
   }
-  @HostListener('mouseenter') open()
+  @HostListener('click') open()
   {
   this.isOpen=true;
   }

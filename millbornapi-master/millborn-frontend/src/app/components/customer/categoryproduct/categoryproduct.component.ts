@@ -11,6 +11,8 @@ import { serviceUrls } from '../../../common/serviceUrls';
 })
 export class CategoryproductComponent implements OnInit {
 prod:any[];
+filt:any[];
+filtid:any;
   constructor(private http:Http,private _pmService:HomepageService,private route:ActivatedRoute) { }
 
   ngOnInit() {
@@ -21,13 +23,25 @@ prod:any[];
       if (!(isNaN(id))) {
         this._pmService.getcateprod(id).subscribe(result =>{
           this.prod = result;
-          console.log(this.prod);
+          this.filt=result;
+         
         });
       }
       else{
         alert("Id is not valid");
       }
     });
+    this._pmService.getEmittedValue()
+    .subscribe(item => this.filter(this.filtid=item));
   }
+  filter(a){
+    this.prod=[];
+    this.filt.forEach(element => {
+      if(element.SubCategoryId===a){
+        this.prod.push(element);
 
+      }     
+     
+    });
+  }
 }

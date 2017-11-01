@@ -3,19 +3,9 @@ import { RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from './common/auth.guard';
 
 import { AppComponent } from './app.component';
-import { SidebarComponent } from './components/sidebar/sidebar.component';
-import { NavbarComponent } from './components/navbar/navbar.component';
-import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 
-import { AppContainerComponent } from './components/app-container/app-container.component';
-import { SigninComponent } from './components/signin/signin.component';
-import { ClientTypeComponent } from './components/client-type/client-type.component';
-import { ClientRegistrationComponent } from './components/client-registration/client-registration.component';
-import { ProductRegistrationComponent } from './components/product-registration/product-registration.component';
-import { ClientListComponent } from './components/client-list/client-list.component';
-import { ClientApprovalComponent } from './components/client-approval/client-approval.component';
-import { ProductListComponent } from './components/product-list/product-list.component';
+
 import { HeaderComponent } from './components/customer/header/header.component';
 import { BarContainerComponent } from './components/customer/bar-container/bar-container.component';
 import { HomeComponent } from './components/customer/home/home.component';
@@ -25,9 +15,13 @@ import { HomeCategoryListComponent } from './components/customer/home-category-l
 import { SubgroupproductscomponentComponent } from './components/customer/subgroupproductscomponent/subgroupproductscomponent.component'
 import { HomeProductListComponent } from './components/customer/home-product-list/home-product-list.component'
 import { CategoryproductComponent } from './components/customer/categoryproduct/categoryproduct.component'
+import { LoginComponent } from './components/customer/login/login.component';
+import { CreateAccountComponent } from './components/customer/create-account/create-account.component';
+import { ProductDetailComponent } from './components/customer/product-detail/product-detail.component'
+import { ProfileComponent } from './components/customer/profile/profile.component';
+import { CartComponent } from './components/customer/cart/cart.component';
+import { GroupproductsComponent } from './components/customer/groupproducts/groupproducts.component';
 
-
-import { SharedModule } from "./components/shared/shared.module";
 
 
 const routes: Routes = [
@@ -40,9 +34,7 @@ const routes: Routes = [
     component: HomeComponent,
   children:[
     {path:'' ,component:HomeCategoryListComponent,outlet:'category'},
-    {path:'',component:HomeProductListComponent,outlet:'product'},
-
-{path:'cate/:id',component:CategoryListCateComponent,outlet:'category'}
+    {path:'',component:HomeProductListComponent,outlet:'product'}
   ]
   },
   {
@@ -50,7 +42,7 @@ const routes: Routes = [
     component:HomeComponent,
   children:[
     {path:'',component:CategoryListSubgroupComponent,outlet:'category'},
-  {path:'',component:SubgroupproductscomponentComponent,outlet:'product'},
+  {path:'',component:SubgroupproductscomponentComponent,outlet:'product'}
   ]
 },
 {
@@ -58,45 +50,58 @@ const routes: Routes = [
   component:HomeComponent,
 children:[
   {path:'',component:CategoryListCateComponent,outlet:'category'},
-{path:'',component:CategoryproductComponent,outlet:'product'},
+{path:'',component:CategoryproductComponent,outlet:'product'}
 ]
+},
+{
+  path:'group/:id',
+  component:HomeComponent,
+children:[
+  // {path:'',component:CategoryListCateComponent,outlet:'category'},
+{path:'',component:GroupproductsComponent,outlet:'product'}
+]
+},
+{
+  path:'login',
+  component:HomeComponent,
+  children:[
+    {path:'',component:LoginComponent,outlet:'category'}
+  ]
+},
+{
+  path:'create',
+  component:HomeComponent,
+  children:[
+    {path:'',component:CreateAccountComponent,outlet:'category'}
+  ]
+},
+{
+  path:'product/:id',
+  component:HomeComponent,
+  children:[
+    {path:'',component:ProductDetailComponent,outlet:'category'}
+  ]
+},
+{
+  path:'account/:id',
+  component:HomeComponent,
+  children:[
+    {path:'',component:ProfileComponent,outlet:'category'}
+  ]
+},
+{
+  path :'cart',
+  component:HomeComponent,
+  children:[
+    {path:'',component:CartComponent,outlet:'category'}
+  ]
 }
+
   ]
 },
   
-   {
-    path: 'account',
-    children: [
-      { path: '', redirectTo: 'signin', pathMatch: 'full' },
-      { path: 'signin', component: SigninComponent },
-
-    ]
-  },
-  {
-    path: 'app',
-    component: AppContainerComponent,
-    children: [
-      { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
-      { path: 'dashboard', component: DashboardComponent, canActivate:[AuthGuard] },
-      { path: 'clienttype', component: ClientTypeComponent, canActivate:[AuthGuard] },
-      { path: 'productregistration', component: ProductRegistrationComponent, canActivate:[AuthGuard] },
-      {
-        path : 'client',
-        children : [
-          { path: 'create', component: ClientRegistrationComponent, canActivate:[AuthGuard] },
-          { path: 'update/:id', component: ClientRegistrationComponent, canActivate:[AuthGuard] },
-          { path: 'list', component: ClientListComponent, canActivate:[AuthGuard] },
-          { path: 'approval/:id', component: ClientApprovalComponent, canActivate:[AuthGuard] }
-        ]
-      },
-      {
-        path: 'product',
-        children :[
-         { path: 'list',component:ProductListComponent,canActivate:[AuthGuard]}
-        ]
-      }
-    ]
-  },
+  
+  
  {path:'',redirectTo:'home',pathMatch:'full'},
   { path: '**', component: PageNotFoundComponent }
 ]

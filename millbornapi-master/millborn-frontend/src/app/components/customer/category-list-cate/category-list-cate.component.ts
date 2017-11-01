@@ -28,5 +28,8 @@ subcate:any[];
       }
     });
   }
+  subcatefilter(a){
+    this._pmService.filterSubcategory(a);
+  }
 
 }
